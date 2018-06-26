@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "jest --verbose --coverage --detectOpenHandles",
+    "test-watch": "jest --watchAll",
     "lint": "eslint **/*.js",
     "start": "node index.js",
     "mongod": "mongod"
@@ -27,9 +28,13 @@
     "dotenv": "^6.0.0",
     "eslint": "^5.0.0",
     "express": "^4.16.3",
+    "i": "^0.3.6",
     "jest": "^23.2.0",
     "mockgoose": "^7.3.5",
+    "mockgoose-fix": "^7.3.6",
+    "mongodb": "^3.0.10",
     "mongoose": "^5.1.6",
+    "require-dir": "^1.0.0",
     "supertest": "^3.1.0"
   }
 }

@@ -5,6 +5,8 @@ import {
 } from '../../../src/app.js';
 // import superagent from 'superagent';
 // import app from '../../../src/app.js';
+import Dog from '../../../src/models/dogs.js';
+import Cat from '../../../src/models/cats.js';
 
 import modelsHelper from '../../../src/scripts/models.helper.js';
 const mockRequest = supertest(server);
@@ -184,6 +186,56 @@ describe('API MODULE', () => {
 
 
 }); // closing describe
+//have something reference something else
+describe('LAB 14 DOG and CAT modules', () => {
+  
+  //create cat first with post
+  //create a dog
+  //PASS in 
+
+//works = you are properely saving the cat as part of the dog and the next step is to populate that cat out
+  it('POL', () => {
+    return Cat.create({name : 'Zoe', color: 'black'})
+      .then( cat => {
+        expect(cat.name).toEqual('ZOE');
+
+        return Dog.create({name : 'Felix', color: 'white', cat: cat._id})
+          .then(dog => {
+            expect(dog.cat).toEqual(cat._id);
+
+            //were expecting it to show us a cat object not just the cat id but we only give it the cat id because that all we need so just add populate
+
+            // return dog.save()
+            //   .then(savedDog => {
+            //     // console.log('nested Dog ID: ', dog._id);
+            //     console.log('Saved Cat with nested Dog: ', savedDog);
+            //     expect(savedDog.cat).toEqual(cat._id);
+            //   });
+          });
+      });
+  });
+
+  //test if the populate works
+  it('should have populated cat', () => {
+    return Cat.create({name : 'Zoe', color: 'black'})
+      .then( cat => {
+        expect(cat.name).toEqual('ZOE');
+
+        return Dog.create({name : 'Felix', color: 'white', cat: cat._id})
+          .then(dog => {
+            return Dog.findById(dog._id).populate('cat').exec().then(foundDog => {
+              // populate the key from the other schema
+
+              console.log('FOUNDDOG.CAT: ', foundDog.cat);
+              expect(foundDog.cat.name).toEqual(cat.name);
+            });
+          });
+      });
+  });
+
+
+
+}); //closing describe
 
 ////////////////////////////////////////////////////////////////////
 // OLD SUPERAGENT TESTS BELOW

@@ -10,8 +10,8 @@ app.use(express.json());
 app.use(express.urlencoded({extended:true}));
 app.use(cors());
 app.use(router);
-app.use(badId);
 
+// app.use(badId);
 
 let serverOn = false;
 // let server;
