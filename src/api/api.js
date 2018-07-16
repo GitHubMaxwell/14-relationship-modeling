@@ -50,7 +50,7 @@ router.get('/api/v1/dogs', (req, res, next) => {
 
 router.post('/api/v1/cats', (req,res,next) => {
 // POST - test 200, returns a resource for requests made with a valid body
-  if(!req.body) {
+  if(!Object.keys(req.body).length) {
     throw badReq(res);
   }
 
@@ -64,8 +64,7 @@ router.put('/api/v1/cats/:id', (req,res,next) => {
 // PUT - test 200, returns a resource with an updated body
 // PUT - test 404, responds with 'not found' for valid requests made with an id that was not found
   console.log('PUT REQ.BODY: ', req.body);
-  if(req.body === {}) {
-    // change this to the object keys shit
+  if(!Object.keys(req.body).length) {
     console.log('INSIDE FAILED PUT: ', req.body);
     throw badReq(res);
   }
