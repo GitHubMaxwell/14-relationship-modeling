@@ -18,3 +18,8 @@
 * start nodemon with npm start
 * open postman try GET PUT POST DELETE routes out using correct URI for each
 * you can try the /api/v1/dogs POST route to see the nested and populated cat. if you cant then the method of running the tests should show you a Dog result with a cat inside
+
+## env fields
+
+* PORT
+* MONGODB_URI

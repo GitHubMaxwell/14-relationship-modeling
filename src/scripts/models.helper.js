@@ -13,7 +13,7 @@ jest.setTimeout(60000);
 
 const mockgoose = new Mockgoose(mongoose);
 
-console.log('models.helper FTW');
+// console.log('models.helper FTW');
 
 export default {
   afterAll: (done) => {
