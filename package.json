@@ -28,7 +28,6 @@
     "dotenv": "^6.0.0",
     "eslint": "^5.0.0",
     "express": "^4.16.3",
-    "i": "^0.3.6",
     "jest": "^23.2.0",
     "mockgoose": "^7.3.5",
     "mockgoose-fix": "^7.3.6",

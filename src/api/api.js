@@ -79,9 +79,10 @@ router.put('/api/v1/cats/:id', (req,res,next) => {
       updateContent = { color : `${req.body.color}`};
     }
 
-    Cat.findOneAndUpdate(updateTarget, updateContent)
+    Cat.findOneAndUpdate(updateTarget, updateContent, {new:true})
       .then( data => {
         //update the sendJSON to give back the UPDATED object
+        // console.log(data);
         sendJSON(res,data);
       })
       .catch( next );
