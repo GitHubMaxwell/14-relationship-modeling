@@ -7,14 +7,49 @@
 
 * TRAVIS:  https://travis-ci.com/GitHubMaxwell/14-relationship-modeling 
 * HEROKU: https://lab14-max.herokuapp.com/ 
-* GitHUB PR: https://github.com/GitHubMaxwell/14-relationship-modeling/pull/1
+* GitHUB PR: https://github.com/GitHubMaxwell/14-relationship-modeling/pull/2
 
 ## Steps
 * fork/clone code
 * npm install
 * run npm test without having Nodemon (npm start) running but has MongoDB running with mongod in terminal
-* test with postman:
-* start MongoDB with mongod
-* start nodemon with npm start
-* open postman try GET PUT POST DELETE routes out using correct URI for each
-* you can try the /api/v1/dogs POST route to see the nested and populated cat. if you cant then the method of running the tests should show you a Dog result with a cat inside
+
+
+## env fields
+
+* PORT
+* MONGODB_URI
+
+## Heroku/Postman Testing
+
+* GET: fail 404, it should respond with 'not found' for valid requests made with an id that was not found
+-- `https://lab14-max.herokuapp.com/api/v1/cats/`
+
+* GET: success 200, it should contain a response body for a request made with a valid id
+-- do a POST first and copy the _id and paste it at the end of the uri like below
+-- `https://lab14-max.herokuapp.com/api/v1/cats/18f3dde0-8895-11e8-9c87-adca78fc36b5`
+
+* POST: fail 400, it should respond with 'bad request' if no request body was provided or the body was invalid
+-- `https://lab14-max.herokuapp.com/api/v1/cats`
+-- (in body tab > raw / JSON(application/json))    `{"name":"max","color":"green"}`
+
+* POST: pass 200, it should respond with the body content for a post request with a valid body
+-- `https://lab14-max.herokuapp.com/api/v1/cats`
+-- dont put anything in the body tag
+
+* DELETE-one pass 200
+-- do a POST first and copy the _id and paste it at the end of the uri like below
+-- `https://lab14-max.herokuapp.com/api/v1/cats/18f3dde0-8895-11e8-9c87-adca78fc36b5`
+
+* DELETE-one fail 404
+-- `https://lab14-max.herokuapp.com/api/v1/cats`
+
+* DELETE-all pass 200
+-- `https://lab14-max.herokuapp.com/api/v1/deleteall/cats`
+
+* PUT pass 200
+-- do a POST first and copy the _id and paste it at the end of the uri like below
+-- `https://lab14-max.herokuapp.com/api/v1/cats/18f3dde0-8895-11e8-9c87-adca78fc36b5`
+
+* PUT fail 400
+-- `https://lab14-max.herokuapp.com/api/v1/cats`

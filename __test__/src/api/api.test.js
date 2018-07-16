@@ -10,7 +10,7 @@ import Cat from '../../../src/models/cats.js';
 
 import modelsHelper from '../../../src/scripts/models.helper.js';
 const mockRequest = supertest(server);
-const API_URL = '/api/v1/cats';
+const API_URL = '/api/v1/cats/';
 
 afterAll(modelsHelper.afterAll);
 beforeAll(modelsHelper.beforeAll);
@@ -30,28 +30,34 @@ describe('API MODULE', () => {
       .post(API_URL)
       .send(catObj)
       .then(results => {
-        try {
-          const cat = JSON.parse(results.text);
-          // console.log('CAT:',cat);
-          expect(cat.name).toBe(catObj.name);
-          expect(cat._id).toBeDefined();
-        } catch (error) {
-          fail(err);
-        }
-      }).catch(err => fail(err));
+        const cat = JSON.parse(results.text);
+        expect(cat.name).toBe(catObj.name);
+        expect(cat._id).toBeDefined();
+        // try {
+        //   // console.log('CAT:',cat);
+        //   expect(cat.name).toBe(catObj.name);
+        //   expect(cat._id).toBeDefined();
+        // } catch (error) {
+        //   fail(err);
+        // }
+      });
+    // .catch(err => fail(err));
   });
 
   it('GET ALL cats', () => {
     return mockRequest
       .get(API_URL)
       .then(results => {
-        try {
-          const cat = JSON.parse(results.text);
-          expect(cat.length).toBe(1);
-        } catch (error) {
-          fail(err);
-        }
-      }).catch(err => fail(err));
+        const cat = JSON.parse(results.text);
+        expect(cat.length).toBe(1);
+        // try {
+        //   const cat = JSON.parse(results.text);
+        //   expect(cat.length).toBe(1);
+        // } catch (error) {
+        //   fail(err);
+        // }
+      });
+    // .catch(err => fail(err));
   });
 
 
@@ -73,13 +79,13 @@ describe('API MODULE', () => {
             expect(data.body.name).toEqual(cat.name);
             expect(data.body.color).toEqual(cat.color);
             expect(data.body._id).toEqual(cat._id);
-          })
-          .catch( err => fail(err));
-      })
-      .catch( err=> fail(err));
+          });
+        // .catch( err => fail(err));
+      });
+    // .catch( err=> fail(err));
   });
 
-  it('UPDATE one cat', () => {
+  it('PUT one cat', () => {
     const oldCat = {
       name: 'OLD CAT',
       color: 'WOOF',
@@ -90,56 +96,29 @@ describe('API MODULE', () => {
       .then(results => {
         const cat = JSON.parse(results.text);
         const updateCat = {color: 'polkadot'};
-        return mockRequest.put(`/api/v1/cats/${cat._id}`)
+
+        return mockRequest.put(API_URL + cat._id)
           .send(updateCat)
           .then(data => {
-            return mockRequest.get(`/api/v1/cats/${data.body._id}`)
+            return mockRequest.get(API_URL + data.body._id)
               .then(newCat => {
+                // console.log(newCat);
                 expect(newCat.body.color).toEqual(updateCat.color.toUpperCase());
-              })
-              .catch( err => fail(err));
-          })
-          .catch( err => fail(err));
-      })
-      .catch( err=> fail(err));
+              });
+            //         .catch( err => fail(err));
+          });
+      //     .catch( err => fail(err));
+      });
+    // .catch( err=> fail(err));
   });
 
-  xit('Failed UPDATE on one cat', () => {
-    // const oldCat = {
-    //   name: 'FAILED CAT',
-    //   color: 'FAIL',
-    // };
+  it('PUT test 404: no id', () => {
 
-    return mockRequest.put(`/api/v1/cats/`)
+    return mockRequest.put(API_URL)
       .then( data => {
-        try {
-          expect(data.statusCode).toEqual(400);
-        }
-        catch(err) {
-          console.log('ERR STATUS CODE: ', err.statusCode);
-          expect(err.statusCode).toEqual(400);
-        }
-      })
-      .catch( err => {
-        fail(err);
+        expect(data.status).toEqual(404);
       });
 
-    // return mockRequest.post(API_URL)
-    //   .send(oldCat)
-    //   .then(results => {
-    //     const cat = JSON.parse(results.text);
-    //     return mockRequest.put(`/api/v1/cats/${cat._id}`)
-    //       .then(data => {
-    //         console.log('INDSIDE PUT THEN: ', data.body);
-    //         expect(true).toEqual(false);
-
-    //       })
-    //       .catch( err => {
-    //         console.log('ERR STATUS CODE: ', err.statusCode);
-    //         expect(err.status).toEqual(400);
-    //       });
-    //   })
-    //   .catch( err=> fail(err));
   });
 
   it('DELETE one cat', () => {
@@ -153,14 +132,14 @@ describe('API MODULE', () => {
       .then(results => {
         const cat = JSON.parse(results.text);
         // console.log('CAT object BEFORE delete', cat);
-        return mockRequest.delete(`/api/v1/cats/${cat._id}`)
+        return mockRequest.delete(API_URL + cat._id)
           .then(data => {
             // console.log('CAT object AFTER delete', data.text);
             expect(data.body._id).not.toBeDefined();
-          })
-          .catch( err => fail(err));
-      })
-      .catch( err=> fail(err));
+          });
+        // .catch( err => fail(err));
+      });
+    // .catch( err=> fail(err));
   });
 
   it('DELETE all cats', () => {
@@ -171,17 +150,17 @@ describe('API MODULE', () => {
 
     return mockRequest.post(API_URL)
       .send(oldCat)
-      .then(results => {
-        const cat = JSON.parse(results.text);
+      .then( () => {
+        // const cat = JSON.parse(results.text);
+
         return mockRequest.delete(`/api/v1/deleteall/cats`)
           .then(data => {
             expect(data.body._id).not.toBeDefined();
             expect(data.text._id).not.toBeDefined();
-
-          })
-          .catch( err => fail(err));
-      })
-      .catch( err=> fail(err));
+          });
+        // .catch( err => fail(err));
+      });
+    // .catch( err=> fail(err));
   });
 
 
@@ -226,7 +205,7 @@ describe('LAB 14 DOG and CAT modules', () => {
             return Dog.findById(dog._id).populate('cat').exec().then(foundDog => {
               // populate the key from the other schema
 
-              console.log('FOUNDDOG.CAT: ', foundDog.cat);
+              // console.log('FOUNDDOG.CAT: ', foundDog.cat);
               expect(foundDog.cat.name).toEqual(cat.name);
             });
           });
