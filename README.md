@@ -7,7 +7,7 @@
 
 * TRAVIS:  https://travis-ci.com/GitHubMaxwell/14-relationship-modeling 
 * HEROKU: https://lab14-max.herokuapp.com/ 
-* GitHUB PR: https://github.com/GitHubMaxwell/14-relationship-modeling/pull/1
+* GitHUB PR: https://github.com/GitHubMaxwell/14-relationship-modeling/pull/2
 
 ## Steps
 * fork/clone code
