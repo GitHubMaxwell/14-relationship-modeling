@@ -73,11 +73,13 @@ router.put('/api/v1/cats/:id', (req,res,next) => {
     let updateTarget = { _id: `${req.params.id}` };
     let updateContent;
   
-    if(req.body.name){
+    if(req.body.name && req.body.color) {
+      updateContent = { name : `${req.body.name}`, color : `${req.body.color}`};
+    } else if(req.body.name){
       updateContent = { name : `${req.body.name}`};
     } else if(req.body.color) {
       updateContent = { color : `${req.body.color}`};
-    }
+    } 
 
     Cat.findOneAndUpdate(updateTarget, updateContent, {new:true})
       .then( data => {
