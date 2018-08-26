@@ -49,7 +49,7 @@ router.get('/api/v1/cats', (req, res, next) => {
 router.post('/api/v1/cats', (req,res,next) => {
 // POST - test 200, returns a resource for requests made with a valid body
   if(!Object.keys(req.body).length) {
-    throw badReq(res);
+    badReq(res);
   }
 
   let newCat = new Cat(req.body);

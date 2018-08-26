@@ -5,6 +5,7 @@ import mongoose from 'mongoose';
 const Cat = mongoose.Schema({
   name: { type: String, uppercase: true, required:true },
   color: { type: String, uppercase: true, required:true },
+  catId : {type: mongoose.Schema.Types.ObjectId, ref: 'cats'}
 
 });
 

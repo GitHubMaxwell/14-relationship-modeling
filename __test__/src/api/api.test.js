@@ -31,15 +31,9 @@ describe('API MODULE', () => {
       .send(catObj)
       .then(results => {
         const cat = JSON.parse(results.text);
+        console.log('POST');
         expect(cat.name).toBe(catObj.name);
         expect(cat._id).toBeDefined();
-        // try {
-        //   // console.log('CAT:',cat);
-        //   expect(cat.name).toBe(catObj.name);
-        //   expect(cat._id).toBeDefined();
-        // } catch (error) {
-        //   fail(err);
-        // }
       });
     // .catch(err => fail(err));
   });
@@ -75,7 +69,7 @@ describe('API MODULE', () => {
         return mockRequest.get(`/api/v1/cats/${cat._id}`)
           .then(data => {
             // console.log('DATA ID :',data.body._id);
-            // console.log('CAT ID:',cat._id);
+            // console.log('CAT ID:',data);
             expect(data.body.name).toEqual(cat.name);
             expect(data.body.color).toEqual(cat.color);
             expect(data.body._id).toEqual(cat._id);
